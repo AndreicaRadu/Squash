@@ -71,7 +71,7 @@ public class Ranking {
         Match m = new Match(p1 , p2);
         matchList.add(m);
         FileWriter fwm = new FileWriter("matches.csv" , true );
-        fwm.write(p1 + "," + p2 + "\n");
+        fwm.write("2\n" + p1 + "\n" + p2 + "\n");
         fwm.close();
 
         double aux1 = playerList.get(playerMap.get(p1)).getRtg();
