@@ -3,8 +3,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
-import static java.lang.Double.max;
-import static java.lang.Double.parseDouble;
+import static java.lang.Double.*;
 
 public class Ranking {
     private ArrayList<Player> playerList;
@@ -92,10 +91,19 @@ public class Ranking {
         playerList.get(playerMap.get(p1)).setK(max(15.0 , k1 - 1));
         playerList.get(playerMap.get(p2)).setK(max(15.0 , k2 - 1));
 
+        this.normalize();
+
         FileWriter fw = new FileWriter("ranking.csv" );
         for(int i=0 ; i<playerList.size() ; i++)
             fw.write(playerList.get(i).getName() + "," + playerList.get(i).getRtg() + "," + playerList.get(i).getK() + "," + playerList.get(i).getWins() + "," + playerList.get(i).getMatches() + "\n");
         fw.close();
+    }
+    public void normalize(){
+        double sum = 0;
+        for(int i=0 ; i<playerList.size() ; i++)
+            sum += playerList.get(i).getRtg();
+        for(int i=0 ; i<playerList.size() ; i++)
+            playerList.get(i).setRtg(playerList.get(i).getRtg() * playerList.size() * 1000 / sum);
     }
     public void match(String p1, String p2) throws IOException{
         if(!playerMap.containsKey(p1))
@@ -136,6 +144,8 @@ public class Ranking {
         playerList.get(playerMap.get(p2)).setRtg(aux2);
         playerList.get(playerMap.get(p1)).setK(max(15.0 , k1 - 1));
         playerList.get(playerMap.get(p2)).setK(max(15.0 , k2 - 1));
+
+        this.normalize();
 
         FileWriter fw = new FileWriter("ranking.csv" );
         for(int i=0 ; i<playerList.size() ; i++)
