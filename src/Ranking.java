@@ -75,6 +75,7 @@ public class Ranking {
         fwm.close();
 
         double aux1 = playerList.get(playerMap.get(p1)).getRtg();
+
         double aux2 = playerList.get(playerMap.get(p2)).getRtg();
         double k1 = playerList.get(playerMap.get(p1)).getK();
         double k2 = playerList.get(playerMap.get(p2)).getK();
